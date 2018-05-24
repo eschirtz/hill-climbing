@@ -6,6 +6,7 @@ window.onkeyup = function(e){
   // Map functions to keys
   switch(e.key){
     case 'Enter':
+      naiveDone = false; 
       run();
     break;
   }

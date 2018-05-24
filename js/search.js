@@ -18,6 +18,8 @@ function naiveHillClimbing(state, state_space){
       s = t;
     }
   }
+  if(s == state)
+    naiveDone = true;
   return s;
 }
 
@@ -46,7 +48,7 @@ function simulatedAnnealing(state, state_space, temp){
     }
     else{
       // Except worse with probability [ Boltzmann Distribution ]
-      let loss = Math.abs(s.score - t.score);
+      let loss = Math.abs(s.score - t.score); // 'badness' of state
       let probability = Math.exp(-(loss/temp));
       if(Math.random() <= probability){
         ts.push(t); // add to potential worse neighbor list

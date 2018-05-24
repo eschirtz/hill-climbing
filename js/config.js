@@ -7,13 +7,13 @@ const BG_COLOR = '#323293';
 const STROKE_WIDTH = 12;
 const RADIUS_DEFAULT = 10;
 // Simulation Settings
-const POINTS_DEFAULT = 100;
+const POINTS_DEFAULT = 300;
 const VARIANCE_DEFAULT = 0;
 const HEIGHT_DEFAULT = 100;
 const KEYFRAME = 1; // Frames between changes
 const ALGORITHM_DEFAULT = 'simulated_annealing';
 // Annealing
 const TEMP = 100000; // Initial temperature
-const TEMP_CUTOFF = 0.25; 
+const TEMP_CUTOFF = 0.05;
 const COOLING_RATE = 0.99;
-const STEP_SIZE_DEFAULT = 16;
+const STEP_SIZE_DEFAULT = 25;

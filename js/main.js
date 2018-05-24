@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 let state_space, curr_state;
 let time = 0; // Running counter
 let temp = TEMP;
+let naiveDone = false;
 let runConfig = {
   'initialTemp' : TEMP,
   'coolingRate' : COOLING_RATE,
@@ -29,8 +30,9 @@ function run(){
   // Pick a random start state
   state = state_space.randomState();
   frame();
-  Utility.makeToast('Initial score: ' + state.score.toFixed(2), 4000);
+  Utility.makeToast('Initial score: ' + state.score.toFixed(2), 2000);
 }
+
 function initEnvironment(){
   // State data
   state_space = new StateSpace_2D();
@@ -61,7 +63,7 @@ function frame(){
   // Render
   clearScreen();
   drawScene(state, state_space);
-  if(temp < TEMP_CUTOFF){
+  if(temp < TEMP_CUTOFF || naiveDone){
     Utility.makeToast('Final score: ' + state.score.toFixed(2), 4000);
   }
   else{
@@ -127,7 +129,7 @@ function getHill(width, height, points){
   let f1 = 2; // frequency of cos
   let f2 = 7;
   let f3 = 20;
-  let f4 = 1;
+  let f4 = .5;
   let phi1 = Math.random();
   let phi2 = Math.random();
   let phi3 = Math.random();
@@ -138,8 +140,12 @@ function getHill(width, height, points){
     let cos1 = (1.0)*Math.cos(2*pi*(f1)*t + 2*pi*phi1);
     let cos2 = (.3)*Math.cos(2*pi*(f2)*t + 2*pi*phi2);
     let cos3 = (.1)*Math.cos(2*pi*(f3)*t + 2*pi*phi3);
-    let cos4 = (1.4)*Math.cos(2*pi*(f4)*t + 2*pi*phi4);
-    height = (cos1 + cos2 + cos3 + cos4 + 2) * h/2 + h/2;
+    let cos4 = (1.75)*Math.cos(2*pi*(f4)*t + 2*pi*phi4);
+    // let cos5 = (100)/(Math.abs(i - points/2) + 50);
+    let complexHill = (cos1 + cos2 + cos3 + cos4 + 2);
+    let simpleHill = cos4 + 1;
+    let sum = complexHill;
+    height = sum * h/2 + h/2;
     hill.push(height);
   }
   return hill;
